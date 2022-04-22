@@ -1,4 +1,6 @@
 use Test;
 
 plan 1;
-use-ok "Precomp::Cleanup";
+use-ok "Repository::Precomp::Cleanup";
+
+# vim: expandtab shiftwidth=4

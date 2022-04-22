@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 
-use Precomp::Cleanup:ver<0.0.1>:auth<zef:lizmat>;
+use Repository::Precomp::Cleanup:ver<0.0.1>:auth<zef:lizmat>;
 
 #| Remove outdated precomp files from repositories
 unit sub MAIN(*@names);

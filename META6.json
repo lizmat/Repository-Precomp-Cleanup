@@ -9,14 +9,15 @@
   ],
   "description": "provide logic for cleaning up precomp directories",
   "license": "Artistic-2.0",
-  "name": "Precomp::Cleanup",
+  "name": "Repository::Precomp::Cleanup",
   "perl": "6.d",
   "provides": {
-    "Precomp::Cleanup": "lib/Precomp/Cleanup.rakumod"
+    "Precomp::Cleanup": "lib/Precomp/Cleanup.rakumod",
+    "Repository::Precomp::Cleanup": "lib/Repository/Precomp/Cleanup.rakumod"
   },
   "resources": [
   ],
-  "source-url": "",
+  "source-url": "https://github.com/lizmat/Repository-Precomp-Cleanup.git",
   "tags": [
   ],
   "test-depends": [

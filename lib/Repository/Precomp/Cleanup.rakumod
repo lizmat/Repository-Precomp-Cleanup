@@ -33,13 +33,13 @@ my sub unlink-recursively(IO::Path:D $io, :$keep --> Int:D) {
 
 =head1 NAME
 
-Precomp::Cleanup - provide logic for cleaning up precomp directories
+Repository::Precomp::Cleanup - provide logic for cleaning up precomp directories
 
 =head1 SYNOPSIS
 
 =begin code :lang<raku>
 
-use Precomp::Cleanup;
+use Repository::Precomp::Cleanup;
 
 cleanup-precomp($*REPO);          # cleanup first repository only
 
@@ -53,19 +53,23 @@ say "Freed up $cleaned bytes in total";
 
 =head1 DESCRIPTION
 
-Precomp::Cleanup is a module that exports a C<cleanup-precomp> subroutine
-that will remove all outdated precompiled files from a given repository.
-It returns the number of bytes that were freed (as reported by C<IO::Path.s>).
+C<Repository::Precomp::Cleanup> is a module that exports a C<cleanup-precomp>
+subroutine that will remove all outdated precompiled files from a given
+repository.  It returns the number of bytes that were freed (as reported by
+C<IO::Path.s>).
 
 =head1 SCRIPTS
 
-This distribution also includes a C<clean-precomp> script that will either
+This distribution also installs a C<clean-precomp> script that will either
 cleanup the specified repositories by name, or all repositories that can
-be cleaned.
+be cleaned from the current repository chain.
 
 =head1 AUTHOR
 
 Elizabeth Mattijsen <liz@raku.rocks>
+
+Source can be located at: https://github.com/lizmat/Repository-Precomp-Cleanup .
+Comments and Pull Requests are welcome.
 
 =head1 COPYRIGHT AND LICENSE
 
