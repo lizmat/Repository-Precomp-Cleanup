@@ -12,13 +12,16 @@
   "name": "Repository::Precomp::Cleanup",
   "perl": "6.d",
   "provides": {
-    "Precomp::Cleanup": "lib/Precomp/Cleanup.rakumod",
     "Repository::Precomp::Cleanup": "lib/Repository/Precomp/Cleanup.rakumod"
   },
   "resources": [
   ],
   "source-url": "https://github.com/lizmat/Repository-Precomp-Cleanup.git",
   "tags": [
+    "REPOSITORY",
+    "DEVELOPER",
+    "TOOL",
+    "CLEANUP"
   ],
   "test-depends": [
   ],

@@ -29,6 +29,8 @@ if @names {
 else {
     cleanup-repos $*REPO.repo-chain;
 }
-say "Freed $freed.flip.comb(3).join(",").flip() bytes from $seen repositories.";
+say "Freed $freed.flip.comb(3).join(",").flip() bytes from $seen repositor{
+    $seen == 1 ?? "y" !! "ies"
+}.";
 
 # vim: expandtab shiftwidth=4

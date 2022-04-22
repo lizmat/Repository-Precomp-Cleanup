@@ -1,25 +1,24 @@
 my str $compilation-id = Compiler.id;
 
 my sub cleanup-precomp(CompUnit::Repository:D $repo --> Int:D) is export {
-    my $identifier := $repo.?name // $repo.id;
-    if $repo.?prefix -> $prefix {
-        (my $io := $prefix.add("precomp")).d
-          ?? unlink-recursively($io, :keep)
-          !! Failure.new("Repository $identifier has no precomp directory")
-    }
-    else {
-        Failure.new("Repository $identifier has no directory")
-    }
+    $repo ~~ CompUnit::Repository::Locally
+      ?? (my $io := $repo.precomp-store.prefix).d
+        ?? unlink-recursively($io, :keep)
+        !! Failure.new("Repository {
+               $repo.?name // $repo.prefix.basename
+           } has no precomp directory")
+      !! 0
 }
 
 my sub unlink-recursively(IO::Path:D $io, :$keep --> Int:D) {
     my int $bytes;
     for $io.dir {
+        my $basename := .basename;
         if .d {
             $bytes += unlink-recursively($_)
-              if .basename ne $compilation-id;
+              if $basename ne $compilation-id;
         }
-        else {
+        elsif $basename ne 'CACHEDIR.TAG' {
             $bytes += .s;
             .unlink;
         }
@@ -55,14 +54,40 @@ say "Freed up $cleaned bytes in total";
 
 C<Repository::Precomp::Cleanup> is a module that exports a C<cleanup-precomp>
 subroutine that will remove all outdated precompiled files from a given
-repository.  It returns the number of bytes that were freed (as reported by
-C<IO::Path.s>).
+repository precompilation-store.  It returns the number of bytes that were
+freed (as reported by C<IO::Path.s>).
 
 =head1 SCRIPTS
 
 This distribution also installs a C<clean-precomp> script that will either
 cleanup the specified repositories by name, or all repositories that can
 be cleaned from the current repository chain.
+
+=head1 WHY
+
+If you are a module developer that tries to keep up-to-date with all latest
+versions of Rakudo, and/or you're a core developer working on the setting,
+you can easily lose a lot of disk-space by outdated precompilation files
+(as each precompilation file is keyed to a specific version of the core).
+
+The script provided by this distribution, allows you to easily free up this
+disk-space without having to wonder what can be removed, and what cannot.
+
+=begin code
+
+$ clean-precomp
+
+=end code
+
+Clean out all precompilation stores in the current repository chain.
+
+=begin code
+
+$ clean-precomp . lib
+
+=end code
+
+Clean out precompilation stores of repositories in "." and "lib".
 
 =head1 AUTHOR
 
