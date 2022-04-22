@@ -1,0 +1,25 @@
+{
+  "auth": "zef:lizmat",
+  "authors": [
+    "Elizabeth Mattijsen"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "provide logic for cleaning up precomp directories",
+  "license": "Artistic-2.0",
+  "name": "Precomp::Cleanup",
+  "perl": "6.d",
+  "provides": {
+    "Precomp::Cleanup": "lib/Precomp/Cleanup.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "",
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
+}

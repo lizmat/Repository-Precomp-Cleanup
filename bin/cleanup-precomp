@@ -1,0 +1,34 @@
+#!/usr/bin/env raku
+
+use Precomp::Cleanup:ver<0.0.1>:auth<zef:lizmat>;
+
+#| Remove outdated precomp files from repositories
+unit sub MAIN(*@names);
+
+my int $seen;
+my int $freed;
+my sub cleanup-repos(@repos) {
+    for @repos -> $repo {
+        with cleanup-precomp($repo) {
+            ++$seen;
+            $freed += $_;
+        }
+    }
+}
+
+if @names {
+    cleanup-repos @names.map: -> $name {
+        if (my $prefix := $name.IO).d {
+            CompUnit::Repository::FileSystem.new(:$prefix)
+        }
+        elsif CompUnit::RepositoryRegistry.repository-for-name($name) -> $repo {
+            $repo
+        }
+    }
+}
+else {
+    cleanup-repos $*REPO.repo-chain;
+}
+say "Freed $freed.flip.comb(3).join(",").flip() bytes from $seen repositories.";
+
+# vim: expandtab shiftwidth=4
